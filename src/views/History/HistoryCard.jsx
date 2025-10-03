@@ -25,6 +25,7 @@ import {
   Typography,
 } from '@mui/joy'
 import moment from 'moment'
+import { fmtDateTime } from '../../utils/dateFormat'
 import { useEffect, useRef, useState } from 'react'
 import { TASK_COLOR } from '../../utils/Colors.jsx'
 
@@ -460,9 +461,7 @@ const HistoryCard = ({
                   </Typography>
 
                   <Chip size='sm' startDecorator={<EventNote />}>
-                    {moment(
-                      historyEntry.performedAt || historyEntry.updatedAt,
-                    ).format('DD/MM/YYYY HH:mm')}
+                    {fmtDateTime(historyEntry.performedAt || historyEntry.updatedAt)}
                   </Chip>
 
                   <Box sx={{ display: 'flex', gap: 0.5 }}>
@@ -483,7 +482,7 @@ const HistoryCard = ({
                 >
                   {historyEntry.dueDate && (
                     <Chip size='sm' startDecorator={<CalendarMonth />}>
-                      {moment(historyEntry.dueDate).format('DD/MM/YYYY HH:mm')}
+                      {fmtDateTime(historyEntry.dueDate)}
                     </Chip>
                   )}
                 </Box>

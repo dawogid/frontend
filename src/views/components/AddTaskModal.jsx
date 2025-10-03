@@ -1,5 +1,6 @@
 import { Add, EditNotifications } from '@mui/icons-material'
 import { Box, Button, Input, Option, Select, Typography } from '@mui/joy'
+import DateTimePicker from '../../components/DateTimePicker'
 import { FormControl } from '@mui/material'
 import * as chrono from 'chrono-node'
 import moment from 'moment'
@@ -792,16 +793,11 @@ const TaskInput = ({ autoFocus, onChoreUpdate, isModalOpen, onClose }) => {
           </FormControl>
         )}
         {dueDate && (
-          <FormControl>
-            <Typography level='body-sm'>Due Date</Typography>
-            <Input
-              type='datetime-local'
-              value={dueDate}
-              onChange={e => setDueDate(e.target.value)}
-              sx={{ width: '100%', fontSize: '16px' }}
-            />
-          </FormControl>
-        )}
+                  <FormControl>
+                    <Typography level='body-sm'>Due Date</Typography>
+                    <DateTimePicker value={dueDate} onChange={v => setDueDate(v)} />
+                  </FormControl>
+                )}
       </Box>
       <Box
         sx={{

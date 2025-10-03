@@ -26,6 +26,7 @@ import ConfirmationModal from '../Modals/Inputs/ConfirmationModal'
 import CreateChildUserModal from '../Modals/Inputs/CreateChildUserModal'
 import PasswordChangeModal from '../Modals/Inputs/PasswordChangeModal'
 import SettingsLayout from './SettingsLayout'
+import { fmtDate } from '../../utils/dateFormat'
 
 const ChildUserSettings = () => {
   const { data: userProfile } = useUserProfile()
@@ -210,7 +211,7 @@ const ChildUserSettings = () => {
                       </Typography>
                       <Typography level='body-xs' color='neutral'>
                         Created:{' '}
-                        {new Date(child.createdAt).toLocaleDateString()}
+                        {fmtDate(child.createdAt)}
                       </Typography>
                     </Box>
 

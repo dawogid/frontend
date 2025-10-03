@@ -1,6 +1,7 @@
 import { CalendarMonth } from '@mui/icons-material'
 import { Avatar, Box, Chip, Grid, Typography } from '@mui/joy'
 import moment from 'moment'
+import { fmtDate, fmtTime, dayKey } from '../../utils/dateFormat'
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useCircleMembers, useUserProfile } from '../../queries/UserQueries'
@@ -196,18 +197,10 @@ const CalendarCard = ({ chores }) => {
               width: '100%',
             }}
           >
-            <Typography level='title-md'>
-              {moment(selectedDate).format('DD/MM/YYYY')}
-            </Typography>
+            <Typography level='title-md'>{fmtDate(selectedDate)}</Typography>
             <Chip variant='soft' color='primary' size='md'>
               {(() => {
-                const count = chores.filter(chore => {
-                  const choreDate = new Date(
-                    chore.nextDueDate,
-                  ).toLocaleDateString()
-                  const selectedLocalDate = selectedDate.toLocaleDateString()
-                  return choreDate === selectedLocalDate
-                }).length
+                const count = chores.filter(chore => dayKey(chore.nextDueDate) === dayKey(selectedDate)).length
                 return `${count} Tasks`
               })()}
             </Chip>
@@ -226,13 +219,7 @@ const CalendarCard = ({ chores }) => {
             }}
           >
             {chores
-              .filter(chore => {
-                const choreDate = new Date(
-                  chore.nextDueDate,
-                ).toLocaleDateString()
-                const selectedLocalDate = selectedDate.toLocaleDateString()
-                return choreDate === selectedLocalDate
-              })
+              .filter(chore => dayKey(chore.nextDueDate) === dayKey(selectedDate))
               .sort((a, b) => moment(a.nextDueDate).diff(moment(b.nextDueDate)))
               .map((chore, idx) => (
                 <Box
@@ -291,7 +278,7 @@ const CalendarCard = ({ chores }) => {
                         color: 'neutral.500',
                       }}
                     >
-                      {moment(chore.nextDueDate).format('HH:mm')}
+                      {fmtTime(chore.nextDueDate)}
                     </Typography>
                     {/* <Typography
                       level='body-xs'

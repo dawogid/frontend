@@ -2,6 +2,7 @@ import { Capacitor } from '@capacitor/core'
 import { LocalNotifications } from '@capacitor/local-notifications'
 import { Preferences } from '@capacitor/preferences'
 import murmurhash from 'murmurhash'
+import { fmtTime } from '../../utils/dateFormat'
 
 const getNotificationPreferences = async () => {
   const ret = await Preferences.get({ key: 'notificationPreferences' })
@@ -63,7 +64,7 @@ const scheduleNotificationFromTemplate = (
     if (time > now) {
       notifications.push({
         title,
-        body: `${body} at ${time.toLocaleTimeString()}`,
+  body: `${body} at ${fmtTime(time)}`,
         id: notificationId,
         allowWhileIdle: true,
         schedule: {

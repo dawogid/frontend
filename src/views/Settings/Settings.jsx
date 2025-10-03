@@ -19,6 +19,7 @@ import {
 import { Purchases } from '@revenuecat/purchases-capacitor'
 import { useQueryClient } from '@tanstack/react-query'
 import moment from 'moment'
+import { fmtDate, fmtDateTime } from '../../utils/dateFormat'
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import RealTimeSettings from '../../components/RealTimeSettings'
@@ -188,13 +189,9 @@ const Settings = () => {
 
   const getSubscriptionDetails = () => {
     if (userProfile?.subscription === 'active') {
-      return `You are currently subscribed to the Plus plan. Your subscription will renew on ${moment(
-        userProfile?.expiration,
-  ).format('DD/MM/YYYY')}.`
+  return `You are currently subscribed to the Plus plan. Your subscription will renew on ${fmtDate(userProfile?.expiration)}.`
     } else if (userProfile?.subscription === 'cancelled') {
-      return `You have cancelled your subscription. Your account will be downgraded to the Free plan on ${moment(
-        userProfile?.expiration,
-  ).format('DD/MM/YYYY')}.`
+  return `You have cancelled your subscription. Your account will be downgraded to the Free plan on ${fmtDate(userProfile?.expiration)}.`
     } else {
       return `You are currently on the Free plan. Upgrade to the Plus plan to unlock more features.`
     }
@@ -204,9 +201,7 @@ const Settings = () => {
       return `Plus`
     } else if (userProfile?.subscription === 'cancelled') {
       if (moment().isBefore(userProfile?.expiration)) {
-        return `Plus(until ${moment(userProfile?.expiration).format(
-          'DD/MM/YYYY',
-        )})`
+  return `Plus(until ${fmtDate(userProfile?.expiration)})`
       }
       return `Free`
     } else {
@@ -339,12 +334,12 @@ const Settings = () => {
                 </Typography>
                 {member.isActive ? (
                   <Typography level='body-sm'>
-                    Joined on {moment(member.createdAt).format('DD/MM/YYYY')}
+                    Joined on {fmtDate(member.createdAt)}
                   </Typography>
                 ) : (
                   <Typography level='body-sm' color='danger'>
                     Request to join{' '}
-                    {moment(member.updatedAt).format('DD/MM/YYYY')}
+                    {fmtDate(member.updatedAt)}
                   </Typography>
                 )}
               </Box>
@@ -485,7 +480,7 @@ const Settings = () => {
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
             {lastRefresh && (
               <Typography level='body-sm' color='neutral'>
-                Last updated: {moment(lastRefresh).format('DD/MM/YYYY HH:mm')}
+                Last updated: {fmtDateTime(lastRefresh)}
               </Typography>
             )}
             <Button

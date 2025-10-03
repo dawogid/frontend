@@ -35,6 +35,7 @@ import { useState } from 'react'
 import { useImpersonateUser } from '../../contexts/ImpersonateUserContext'
 import { useUserProfile } from '../../queries/UserQueries'
 import { CompleteSubTask } from '../../utils/Fetcher'
+import { fmtDateTime } from '../../utils/dateFormat'
 
 function SortableItem({
   task,
@@ -210,7 +211,7 @@ function SortableItem({
                   fontSize: 'sm',
                 }}
               >
-                {new Date(task.completedAt).toLocaleString()}
+                {fmtDateTime(task.completedAt)}
                 {performers.find(p => p.userId === task.completedBy) ? (
                   <Chip>
                     {

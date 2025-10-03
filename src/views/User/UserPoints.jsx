@@ -45,6 +45,7 @@ import LoadingComponent from '../components/Loading.jsx'
 import { useChoresHistory } from '../../queries/ChoreQueries.jsx'
 import { useCircleMembers, useUserProfile } from '../../queries/UserQueries.jsx'
 import { RedeemPoints } from '../../utils/Fetcher.jsx'
+import { fmtWeekdayShort, fmtDay, fmtMonthShort, fmtYear } from '../../utils/dateFormat'
 import { resolvePhotoURL } from '../../utils/Helpers.jsx'
 import RedeemPointsModal from '../Modals/RedeemPointsModal'
 const UserPoints = () => {
@@ -104,15 +105,13 @@ const UserPoints = () => {
       const currentDate = new Date()
       currentDate.setDate(currentDate.getDate() - i)
       daysAggregated.push({
-        label: currentDate.toLocaleString('en-US', { weekday: 'short' }),
+        label: fmtWeekdayShort(currentDate),
         points: 0,
         tasks: 0,
       })
     }
     history.forEach(chore => {
-      const dayName = new Date(chore.performedAt).toLocaleString('en-US', {
-        weekday: 'short',
-      })
+      const dayName = fmtWeekdayShort(new Date(chore.performedAt))
 
       const dayIndex = daysAggregated.findIndex(dayData => {
         if (userId)
@@ -133,15 +132,13 @@ const UserPoints = () => {
       const currentDate = new Date()
       currentDate.setDate(currentDate.getDate() - i)
       daysAggregated.push({
-        label: currentDate.toLocaleString('en-US', { day: 'numeric' }),
+        label: fmtDay(currentDate),
         points: 0,
         tasks: 0,
       })
     }
     history.forEach(chore => {
-      const dayName = new Date(chore.performedAt).toLocaleString('en-US', {
-        day: 'numeric',
-      })
+      const dayName = fmtDay(new Date(chore.performedAt))
 
       const dayIndex = daysAggregated.findIndex(dayData => {
         if (userId)
@@ -164,15 +161,13 @@ const UserPoints = () => {
       const currentMonth = new Date()
       currentMonth.setMonth(currentMonth.getMonth() - i)
       monthlyAggregated.push({
-        label: currentMonth.toLocaleString('en-US', { month: 'short' }),
+        label: fmtMonthShort(currentMonth),
         points: 0,
         tasks: 0,
       })
     }
     history.forEach(chore => {
-      const monthName = new Date(chore.performedAt).toLocaleString('en-US', {
-        month: 'short',
-      })
+      const monthName = fmtMonthShort(new Date(chore.performedAt))
 
       const monthIndex = monthlyAggregated.findIndex(monthData => {
         if (userId)
@@ -195,15 +190,13 @@ const UserPoints = () => {
       const currentYear = new Date()
       currentYear.setFullYear(currentYear.getFullYear() - i)
       yearlyAggregated.push({
-        label: currentYear.toLocaleString('en-US', { year: 'numeric' }),
+        label: fmtYear(currentYear),
         points: 0,
         tasks: 0,
       })
     }
     history.forEach(chore => {
-      const yearName = new Date(chore.performedAt).toLocaleString('en-US', {
-        year: 'numeric',
-      })
+      const yearName = fmtYear(new Date(chore.performedAt))
 
       const yearIndex = yearlyAggregated.findIndex(yearData => {
         if (userId)

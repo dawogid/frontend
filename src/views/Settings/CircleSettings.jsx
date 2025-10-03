@@ -14,6 +14,7 @@ import {
 } from '@mui/joy'
 import { useQueryClient } from '@tanstack/react-query'
 import moment from 'moment'
+import { fmtDate, fmtDateTime } from '../../utils/dateFormat'
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useUserProfile } from '../../queries/UserQueries'
@@ -225,12 +226,12 @@ const CircleSettings = () => {
                 </Typography>
                 {member.isActive ? (
                   <Typography level='body-sm'>
-                    Joined on {moment(member.createdAt).format('DD/MM/YYYY')}
+                    Joined on {fmtDate(member.createdAt)}
                   </Typography>
                 ) : (
                   <Typography level='body-sm' color='danger'>
                     Request to join{' '}
-                    {moment(member.updatedAt).format('DD/MM/YYYY')}
+                    {fmtDate(member.updatedAt)}
                   </Typography>
                 )}
               </Box>
@@ -369,7 +370,7 @@ const CircleSettings = () => {
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
             {lastRefresh && (
               <Typography level='body-sm' color='neutral'>
-                Last updated: {moment(lastRefresh).format('DD/MM/YYYY HH:mm')}
+                Last updated: {fmtDateTime(lastRefresh)}
               </Typography>
             )}
             <Button

@@ -31,6 +31,7 @@ import {
   Typography,
 } from '@mui/joy'
 import React, { useEffect, useState } from 'react'
+import { fmtDateLong, fmtTime, dayKey } from '../../utils/dateFormat'
 
 import { useChores, useChoresHistory } from '../../queries/ChoreQueries'
 import { useCircleMembers, useUserProfile } from '../../queries/UserQueries.jsx'
@@ -43,11 +44,9 @@ const groupByDate = history => {
   const aggregated = {}
   for (let i = 0; i < history.length; i++) {
     const item = history[i]
-    const date = new Date(item.performedAt).toLocaleDateString()
-    if (!aggregated[date]) {
-      aggregated[date] = []
-    }
-    aggregated[date].push(item)
+    const key = dayKey(item.performedAt)
+    if (!aggregated[key]) aggregated[key] = []
+    aggregated[key].push(item)
   }
   return aggregated
 }
@@ -133,12 +132,7 @@ const ChoreHistoryTimeline = ({ history }) => {
       {Object.entries(groupedHistory).map(([date, items]) => (
         <Box key={date} sx={{ mb: 4 }}>
           <Typography level='title-sm' sx={{ mb: 0.5 }}>
-            {new Date(date).toLocaleDateString([], {
-              weekday: 'long',
-              month: 'long',
-              day: 'numeric',
-              year: 'numeric',
-            })}
+            {fmtDateLong(date)}
           </Typography>
           <Divider />
           <Stack spacing={1}>
@@ -146,10 +140,7 @@ const ChoreHistoryTimeline = ({ history }) => {
               <>
                 <ChoreHistoryItem
                   key={record.id}
-                  time={new Date(record.performedAt).toLocaleTimeString([], {
-                    hour: '2-digit',
-                    minute: '2-digit',
-                  })}
+                  time={fmtTime(record.performedAt)}
                   name={record.choreName}
                   points={record.points}
                   status={record.status}

@@ -38,6 +38,7 @@ import {
 import { resolvePhotoURL } from '../../utils/Helpers'
 import { getSafeBottom } from '../../utils/SafeAreaUtils'
 import LoadingComponent from '../components/Loading'
+import DateTimePicker from '../../components/DateTimePicker'
 
 const TimerDetails = () => {
   const { choreId } = useParams()
@@ -1078,9 +1079,7 @@ const TimerDetails = () => {
                         .sort((a, b) => moment(b.start) - moment(a.start))
                         .map((pause, pauseIndex) => {
                           const isOngoing = !pause.end
-                          const sessionDate = moment(pause.start).format(
-                            'DD/MM',
-                          )
+                          const sessionDate = moment(pause.start).format('DD.MM')
                           const startTime = moment(pause.start).format('HH:mm')
                           const endTime = pause.end
                             ? moment(pause.end).format('HH:mm')
@@ -1455,17 +1454,14 @@ const TimerDetails = () => {
                               >
                                 Start Time
                               </Typography>
-                              <Input
-                                type='datetime-local'
-                                value={moment(pause.start).format(
-                                  'YYYY-MM-DDTHH:mm:ss',
-                                )}
-                                onChange={e =>
+                              <DateTimePicker
+                                value={moment(pause.start).format('YYYY-MM-DDTHH:mm:ss')}
+                                onChange={v =>
                                   updatePauseLogEntry(
                                     timerData.id,
                                     pauseIndex,
                                     'start',
-                                    new Date(e.target.value).toISOString(),
+                                    new Date(v).toISOString(),
                                   )
                                 }
                               />
@@ -1478,23 +1474,18 @@ const TimerDetails = () => {
                               >
                                 End Time
                               </Typography>
-                              <Input
-                                type='datetime-local'
+                              <DateTimePicker
                                 value={
                                   pause.end
-                                    ? moment(pause.end).format(
-                                        'YYYY-MM-DDTHH:mm:ss',
-                                      )
+                                    ? moment(pause.end).format('YYYY-MM-DDTHH:mm:ss')
                                     : ''
                                 }
-                                onChange={e =>
+                                onChange={v =>
                                   updatePauseLogEntry(
                                     timerData.id,
                                     pauseIndex,
                                     'end',
-                                    e.target.value
-                                      ? new Date(e.target.value).toISOString()
-                                      : null,
+                                    v ? new Date(v).toISOString() : null,
                                   )
                                 }
                               />

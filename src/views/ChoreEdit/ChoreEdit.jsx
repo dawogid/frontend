@@ -40,6 +40,7 @@ import { GetAllCircleMembers, GetThings } from '../../utils/Fetcher'
 import { isPlusAccount } from '../../utils/Helpers'
 import Priorities from '../../utils/Priorities.jsx'
 import { getSafeBottomPadding } from '../../utils/SafeAreaUtils.js'
+import DateTimePicker from '../../components/DateTimePicker.jsx'
 import LoadingComponent from '../components/Loading.jsx'
 import RichTextEditor from '../components/RichTextEditor.jsx'
 import SubTasks from '../components/SubTask.jsx'
@@ -614,7 +615,7 @@ const ChoreEdit = () => {
         </Box>
 
         <Box>
-          <Typography level='h4'>Sub Tasks</Typography>
+          <Typography level='h4'>Sub Tasksx</Typography>
           {/* <FormControl sx={{ mt: 1 }}>
             <Checkbox
               onChange={e => {
@@ -867,11 +868,7 @@ const ChoreEdit = () => {
                   ? 'When does this task start?'
                   : 'When is the next first time this task is due?'}
               </Typography>
-              <Input
-                type='datetime-local'
-                value={dueDate}
-                onChange={handleDueDateChange}
-              />
+              <DateTimePicker value={dueDate} onChange={v => setDueDate(v)} />
               <FormHelperText>{errors.dueDate}</FormHelperText>
             </FormControl>
           )}

@@ -80,6 +80,7 @@ import {
 import { getSafeBottom } from '../../utils/SafeAreaUtils.js'
 import TaskInput from '../components/AddTaskModal'
 import CalendarDual from '../components/CalendarDual'
+import { dayKey } from '../../utils/dateFormat'
 import CalendarMonthly from '../components/CalendarMonthly.jsx'
 import {
   canScheduleNotification,
@@ -1076,14 +1077,10 @@ const MyChores = () => {
   const getChoresForDate = useCallback(
     date => {
       const filteredChoresData = getFilteredChores
-      const result = filteredChoresData.filter(chore => {
+      return filteredChoresData.filter(chore => {
         if (!chore.nextDueDate) return false
-        const choreDate = new Date(chore.nextDueDate).toLocaleDateString()
-        const selectedDate = date.toLocaleDateString()
-        return choreDate === selectedDate
+        return dayKey(chore.nextDueDate) === dayKey(date)
       })
-
-      return result
     },
     [getFilteredChores],
   )
@@ -2296,7 +2293,7 @@ const MyChores = () => {
             {selectedCalendarDate && (
               <Box sx={{ mt: 2 }}>
                 <Typography level='title-md' gutterBottom>
-                  Tasks for {selectedCalendarDate.toLocaleDateString()}
+                  Tasks for {selectedCalendarDate && dayKey(selectedCalendarDate)}
                 </Typography>
                 <Box
                   sx={{

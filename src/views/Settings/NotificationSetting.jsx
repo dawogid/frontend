@@ -29,6 +29,7 @@ import {
   UpdateNotificationTarget,
 } from '../../utils/Fetcher'
 import SettingsLayout from './SettingsLayout'
+import { fmtDate } from '../../utils/dateFormat'
 
 const NotificationSetting = () => {
   const { showWarning } = useNotification()
@@ -562,7 +563,7 @@ const NotificationSetting = () => {
                           {device.createdAt && (
                             <Typography level='body-sm' color='neutral'>
                               Created At:{' '}
-                              {new Date(device.createdAt).toLocaleDateString()}
+                              {fmtDate(device.createdAt)}
                             </Typography>
                           )}
                         </Box>

@@ -265,11 +265,17 @@ const ProfileSettings = () => {
             options={timezones}
             getOptionLabel={tz => {
               const formattedTimezone = tz.replace(/_/g, ' ')
-              const currentTime = new Date().toLocaleString('en-US', {
-                timeZone: tz,
-                timeStyle: 'short',
-              })
-              return `${formattedTimezone} (${currentTime})`
+              try {
+                const localeTime = new Intl.DateTimeFormat('pl-PL', {
+                  timeZone: tz,
+                  hour: '2-digit',
+                  minute: '2-digit',
+                  hour12: false,
+                }).format(new Date())
+                return `${formattedTimezone} (${localeTime})`
+              } catch {
+                return formattedTimezone
+              }
             }}
             filterOptions={(options, { inputValue }) => {
               if (!inputValue) return options

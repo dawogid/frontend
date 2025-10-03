@@ -1,4 +1,5 @@
 import { Box, Button, FormLabel, Input, Typography } from '@mui/joy'
+import DateTimePicker from '../../components/DateTimePicker'
 import moment from 'moment'
 import { useEffect, useState } from 'react'
 
@@ -35,20 +36,11 @@ function EditHistoryModal({ config, historyRecord }) {
         Edit History
       </Typography>
       <FormLabel>Due Date</FormLabel>
-      <Input
-        type='datetime-local'
-        value={dueDate}
-        onChange={e => {
-          setDueDate(e.target.value)
-        }}
-      />
+      <DateTimePicker value={dueDate} onChange={v => setDueDate(v)} />
       <FormLabel>Completed Date</FormLabel>
-      <Input
-        type='datetime-local'
+      <DateTimePicker
         value={completedDate}
-        onChange={e => {
-          setCompletedDate(e.target.value)
-        }}
+        onChange={v => setCompletedDate(v)}
       />
       <FormLabel>Note</FormLabel>
       <Input

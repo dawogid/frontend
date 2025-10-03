@@ -6,6 +6,7 @@ import {
   Schedule,
 } from '@mui/icons-material'
 import { Box, Card, Chip, Typography } from '@mui/joy'
+import { fmtTime } from '../../utils/dateFormat'
 import { useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
@@ -187,10 +188,7 @@ const TimePassedCard = ({ chore, handleAction, onShowDetails }) => {
                 size='md'
                 startDecorator={<Flag sx={{ fontSize: 14 }} />}
               >
-                {new Date(chore.startTime).toLocaleTimeString([], {
-                  hour: '2-digit',
-                  minute: '2-digit',
-                })}
+                {fmtTime(chore.startTime)}
               </Chip>
             )}
 
@@ -202,10 +200,7 @@ const TimePassedCard = ({ chore, handleAction, onShowDetails }) => {
                 size='md'
                 startDecorator={<Schedule sx={{ fontSize: 14 }} />}
               >
-                {new Date(chore.timerUpdatedAt).toLocaleTimeString([], {
-                  hour: '2-digit',
-                  minute: '2-digit',
-                })}
+                {fmtTime(chore.timerUpdatedAt)}
               </Chip>
             )}
           </>
@@ -219,10 +214,7 @@ const TimePassedCard = ({ chore, handleAction, onShowDetails }) => {
             size='md'
             startDecorator={<Schedule sx={{ fontSize: 14 }} />}
           >
-            {new Date(chore.timerUpdatedAt).toLocaleTimeString([], {
-              hour: '2-digit',
-              minute: '2-digit',
-            })}
+            {fmtTime(chore.timerUpdatedAt)}
           </Chip>
         )}
       </Box>

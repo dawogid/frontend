@@ -50,7 +50,7 @@ const CalendarMonthly = ({ chores, onDateChange }) => {
   return (
     <div className={styles.reactCalendar}>
       <Calendar
-        locale='en-GB'
+        locale='pl'
         calendarType='ISO 8601'
         tileContent={tileContent}
         onChange={d => {

@@ -96,16 +96,13 @@ const CalendarDual = ({ chores, onDateChange }) => {
       {isSecondary && (
         <div className={styles.secondaryCalendarHeader}>
           <Typography level='title-md' sx={{ textAlign: 'center', mb: 1 }}>
-            {date.toLocaleDateString('en-US', {
-              month: 'long',
-              year: 'numeric',
-            })}
+            {fmtMonthYear(date)}
           </Typography>
         </div>
       )}
       <Calendar
         className={styles.reactCalendar}
-        locale='en-GB'
+        locale='pl'
         calendarType='ISO 8601'
         tileContent={tileContent}
         onChange={d => {

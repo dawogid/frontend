@@ -25,6 +25,7 @@ import {
   Typography,
 } from '@mui/joy'
 import moment from 'moment'
+import { fmtShortDate } from '../../utils/dateFormat'
 import { useChores, useChoresHistory } from '../../queries/ChoreQueries'
 import { useCircleMembers } from '../../queries/UserQueries'
 import { resolvePhotoURL } from '../../utils/Helpers'
@@ -48,7 +49,7 @@ const ActivityItem = ({ activity, members }) => {
     } else if (diffInDays < 7) {
       return `${diffInDays}d ago`
     } else {
-  return completed.format('DD/MM')
+  return completed.format('DD.MM')
     }
   }
 
@@ -399,7 +400,7 @@ const ActivitiesCard = ({ title = 'Recent Activities' }) => {
           } else if (isYesterday) {
             dateLabel = 'Yesterday'
           } else {
-            dateLabel = moment(date).format('DD/MM')
+            dateLabel = fmtShortDate(date)
           }
 
           return (

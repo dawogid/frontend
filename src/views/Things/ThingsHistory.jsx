@@ -25,6 +25,7 @@ import {
 } from '@mui/joy'
 import { useTheme } from '@mui/joy/styles'
 import moment from 'moment'
+import { fmtDateTime, fmtDateTimeWithSeconds } from '../../utils/dateFormat'
 import { Link, useParams } from 'react-router-dom'
 import {
   Line,
@@ -294,9 +295,7 @@ const ThingsHistory = () => {
                   tick='false'
                   tickLine='false'
                   axisLine='false'
-                  tickFormatter={tick =>
-                    moment(tick).format('ddd DD/MM/YYYY HH:mm:ss')
-                  }
+                  tickFormatter={tick => moment(tick).format('ddd DD.MM.YYYY HH:mm:ss')}
                 />
                 <YAxis
                   hide='true'
@@ -306,9 +305,7 @@ const ThingsHistory = () => {
                   axisLine='false'
                 />
                 <Tooltip
-                  labelFormatter={label =>
-                    moment(label).format('ddd DD/MM/YYYY HH:mm:ss')
-                  }
+                  labelFormatter={label => moment(label).format('ddd DD.MM.YYYY HH:mm:ss')}
                 />
 
                 <Line
@@ -399,7 +396,7 @@ const ThingsHistory = () => {
                           color='primary'
                           startDecorator={<Schedule />}
                         >
-                          {moment(history.updatedAt).format('DD/MM/YYYY HH:mm')}
+                          {fmtDateTime(history.updatedAt)}
                         </Chip>
                       </Box>
                     </Grid>

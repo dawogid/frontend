@@ -39,6 +39,8 @@ import {
 import { Divider } from '@mui/material'
 import { useQueryClient } from '@tanstack/react-query'
 import moment from 'moment'
+import { fmtDateTime } from '../../utils/dateFormat'
+import DateTimePicker from '../../components/DateTimePicker.jsx'
 import { useEffect, useState } from 'react'
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom'
 
@@ -407,9 +409,7 @@ const ChoreView = () => {
           {chore.name}
         </Typography>
         <Chip startDecorator={<CalendarMonth />} size='md' sx={{ mb: 1 }}>
-          {chore.nextDueDate
-            ? `Due at ${moment(chore.nextDueDate).format('DD/MM/YYYY HH:mm')}`
-            : 'N/A'}
+          {chore.nextDueDate ? `Due at ${fmtDateTime(chore.nextDueDate)}` : 'N/A'}
         </Chip>
         <Box
           sx={{
@@ -792,14 +792,9 @@ const ChoreView = () => {
           />
         </FormControl>
         {completedDate !== null && (
-          <Input
-            sx={{ mt: 1, mb: 1.5, width: 300 }}
-            type='datetime-local'
-            value={completedDate}
-            onChange={e => {
-              setCompletedDate(e.target.value)
-            }}
-          />
+          <Box sx={{ mt: 1, mb: 1.5, width: 300 }}>
+            <DateTimePicker value={completedDate} onChange={v => setCompletedDate(v)} />
+          </Box>
         )}
 
         <Box
