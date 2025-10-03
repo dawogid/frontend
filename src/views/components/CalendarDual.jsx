@@ -1,7 +1,7 @@
 import { Box, Typography } from '@mui/joy'
 import { useEffect, useState } from 'react'
 import Calendar from 'react-calendar'
-import { isSameDay } from '../../utils/dateFormat'
+import { isSameDay, fmtMonthYear } from '../../utils/dateFormat'
 import { useNavigate } from 'react-router-dom'
 import { useCircleMembers, useUserProfile } from '../../queries/UserQueries'
 import { getPriorityColor, TASK_COLOR } from '../../utils/Colors'
@@ -103,6 +103,7 @@ const CalendarDual = ({ chores, onDateChange }) => {
       <Calendar
         className={styles.reactCalendar}
         locale='pl'
+        // react-calendar valid values: 'ISO 8601', 'US', 'Arabic'. If locale+type causes issue, omit.
         calendarType='ISO 8601'
         tileContent={tileContent}
         onChange={d => {
@@ -114,8 +115,9 @@ const CalendarDual = ({ chores, onDateChange }) => {
         activeStartDate={date}
         // Don't show navigation on secondary calendar
         showNavigation={!isSecondary}
-        formatShortWeekday={(locale, date) => {
-          const labels = ['M','T','W','T','F','S','S']
+        formatShortWeekday={(_locale, date) => {
+          // Polish two-letter weekday abbreviations (Mon first): Pn Wt Śr Cz Pt So Nd
+          const labels = ['Pn','Wt','Śr','Cz','Pt','So','Nd']
           return labels[(date.getDay() + 6) % 7]
         }}
         onActiveStartDateChange={({ activeStartDate }) => {

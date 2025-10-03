@@ -56,13 +56,14 @@ const CalendarMonthly = ({ chores, onDateChange }) => {
         onChange={d => {
           onDateChange(new Date(d))
         }}
-        formatShortWeekday={(locale, date) => {
-          // Monday first (ISO): transform JS getDay (0=Sun) to index with Monday=0
-          const labels = ['M', 'T', 'W', 'T', 'F', 'S', 'S']
-          return labels[(date.getDay() + 6) % 7]
+        formatShortWeekday={(_locale, date) => {
+          // Polish two-letter weekday abbreviations starting Monday
+            const labels = ['Pn','Wt','Śr','Cz','Pt','So','Nd']
+            return labels[(date.getDay() + 6) % 7]
         }}
-        formatMonth={(locale, date) => {
-          const monthNames = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']
+        formatMonth={(_locale, date) => {
+          // Polish short month names
+          const monthNames = ['Sty','Lut','Mar','Kwi','Maj','Cze','Lip','Sie','Wrz','Paź','Lis','Gru']
           return monthNames[date.getMonth()]
         }}
       />
