@@ -1,13 +1,13 @@
 import Calendar from 'react-calendar'
 import { getPriorityColor } from '../../utils/Colors'
 import styles from './Calendar.module.css'
+import { isSameDay } from '../../utils/dateFormat'
 const CalendarMonthly = ({ chores, onDateChange }) => {
   const tileContent = ({ date, view }) => {
     if (view === 'month') {
       const dayChores = chores.filter(chore => {
-        const choreDate = new Date(chore.nextDueDate).toLocaleDateString()
-        const tileDate = date.toLocaleDateString()
-        return choreDate === tileDate
+        const choreDateObj = new Date(chore.nextDueDate)
+        return isSameDay(choreDateObj, date)
       })
       if (dayChores.length === 0) {
         return (
@@ -50,30 +50,19 @@ const CalendarMonthly = ({ chores, onDateChange }) => {
   return (
     <div className={styles.reactCalendar}>
       <Calendar
+        locale='en-GB'
+        calendarType='ISO 8601'
         tileContent={tileContent}
         onChange={d => {
           onDateChange(new Date(d))
         }}
-        // format the days from MON, TUE, WED, THU, FRI, SAT, SUN to first three letters:
-        formatShortWeekday={(locale, date) =>
-          ['S', 'M', 'T', 'W', 'T', 'F', 'S'][date.getDay()]
-        }
-        // format month names to show only first 3 characters
+        formatShortWeekday={(locale, date) => {
+          // Monday first (ISO): transform JS getDay (0=Sun) to index with Monday=0
+          const labels = ['M', 'T', 'W', 'T', 'F', 'S', 'S']
+          return labels[(date.getDay() + 6) % 7]
+        }}
         formatMonth={(locale, date) => {
-          const monthNames = [
-            'Jan',
-            'Feb',
-            'Mar',
-            'Apr',
-            'May',
-            'Jun',
-            'Jul',
-            'Aug',
-            'Sep',
-            'Oct',
-            'Nov',
-            'Dec',
-          ]
+          const monthNames = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']
           return monthNames[date.getMonth()]
         }}
       />

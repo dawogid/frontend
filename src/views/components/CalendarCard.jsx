@@ -197,7 +197,7 @@ const CalendarCard = ({ chores }) => {
             }}
           >
             <Typography level='title-md'>
-              {moment(selectedDate).format('MMMM D, YYYY')}
+              {moment(selectedDate).format('DD/MM/YYYY')}
             </Typography>
             <Chip variant='soft' color='primary' size='md'>
               {(() => {
@@ -291,7 +291,7 @@ const CalendarCard = ({ chores }) => {
                         color: 'neutral.500',
                       }}
                     >
-                      {moment(chore.nextDueDate).format('h:mm A')}
+                      {moment(chore.nextDueDate).format('HH:mm')}
                     </Typography>
                     {/* <Typography
                       level='body-xs'

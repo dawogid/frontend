@@ -225,12 +225,12 @@ const CircleSettings = () => {
                 </Typography>
                 {member.isActive ? (
                   <Typography level='body-sm'>
-                    Joined on {moment(member.createdAt).format('MMM DD, YYYY')}
+                    Joined on {moment(member.createdAt).format('DD/MM/YYYY')}
                   </Typography>
                 ) : (
                   <Typography level='body-sm' color='danger'>
                     Request to join{' '}
-                    {moment(member.updatedAt).format('MMM DD, YYYY')}
+                    {moment(member.updatedAt).format('DD/MM/YYYY')}
                   </Typography>
                 )}
               </Box>
@@ -369,7 +369,7 @@ const CircleSettings = () => {
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
             {lastRefresh && (
               <Typography level='body-sm' color='neutral'>
-                Last updated: {moment(lastRefresh).format('MMM DD, HH:mm')}
+                Last updated: {moment(lastRefresh).format('DD/MM/YYYY HH:mm')}
               </Typography>
             )}
             <Button

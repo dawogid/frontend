@@ -48,7 +48,7 @@ const ActivityItem = ({ activity, members }) => {
     } else if (diffInDays < 7) {
       return `${diffInDays}d ago`
     } else {
-      return completed.format('MMM DD')
+  return completed.format('DD/MM')
     }
   }
 
@@ -399,7 +399,7 @@ const ActivitiesCard = ({ title = 'Recent Activities' }) => {
           } else if (isYesterday) {
             dateLabel = 'Yesterday'
           } else {
-            dateLabel = moment(date).format('MMM DD')
+            dateLabel = moment(date).format('DD/MM')
           }
 
           return (

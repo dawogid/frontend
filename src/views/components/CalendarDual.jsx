@@ -1,6 +1,7 @@
 import { Box, Typography } from '@mui/joy'
 import { useEffect, useState } from 'react'
 import Calendar from 'react-calendar'
+import { isSameDay } from '../../utils/dateFormat'
 import { useNavigate } from 'react-router-dom'
 import { useCircleMembers, useUserProfile } from '../../queries/UserQueries'
 import { getPriorityColor, TASK_COLOR } from '../../utils/Colors'
@@ -46,9 +47,8 @@ const CalendarDual = ({ chores, onDateChange }) => {
   const tileContent = ({ date, view }) => {
     if (view === 'month') {
       const dayChores = chores.filter(chore => {
-        const choreDate = new Date(chore.nextDueDate).toLocaleDateString()
-        const tileDate = date.toLocaleDateString()
-        return choreDate === tileDate
+        const choreDateObj = new Date(chore.nextDueDate)
+        return isSameDay(choreDateObj, date)
       })
       if (dayChores.length === 0) {
         return (
@@ -105,6 +105,8 @@ const CalendarDual = ({ chores, onDateChange }) => {
       )}
       <Calendar
         className={styles.reactCalendar}
+        locale='en-GB'
+        calendarType='ISO 8601'
         tileContent={tileContent}
         onChange={d => {
           let date = new Date(d)
@@ -115,10 +117,10 @@ const CalendarDual = ({ chores, onDateChange }) => {
         activeStartDate={date}
         // Don't show navigation on secondary calendar
         showNavigation={!isSecondary}
-        // format the days from MON, TUE, WED, THU, FRI, SAT, SUN to first three letters:
-        formatShortWeekday={(locale, date) =>
-          ['S', 'M', 'T', 'W', 'T', 'F', 'S'][date.getDay()]
-        }
+        formatShortWeekday={(locale, date) => {
+          const labels = ['M','T','W','T','F','S','S']
+          return labels[(date.getDay() + 6) % 7]
+        }}
         onActiveStartDateChange={({ activeStartDate }) => {
           if (!isSecondary) {
             setCurrentDate(activeStartDate)

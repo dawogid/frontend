@@ -408,7 +408,7 @@ const ChoreView = () => {
         </Typography>
         <Chip startDecorator={<CalendarMonth />} size='md' sx={{ mb: 1 }}>
           {chore.nextDueDate
-            ? `Due at ${moment(chore.nextDueDate).format('MM/DD/YYYY hh:mm A')}`
+            ? `Due at ${moment(chore.nextDueDate).format('DD/MM/YYYY HH:mm')}`
             : 'N/A'}
         </Chip>
         <Box

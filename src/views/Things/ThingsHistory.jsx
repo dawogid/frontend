@@ -295,7 +295,7 @@ const ThingsHistory = () => {
                   tickLine='false'
                   axisLine='false'
                   tickFormatter={tick =>
-                    moment(tick).format('ddd MM/DD/yyyy HH:mm:ss')
+                    moment(tick).format('ddd DD/MM/YYYY HH:mm:ss')
                   }
                 />
                 <YAxis
@@ -307,7 +307,7 @@ const ThingsHistory = () => {
                 />
                 <Tooltip
                   labelFormatter={label =>
-                    moment(label).format('ddd MM/DD/yyyy HH:mm:ss')
+                    moment(label).format('ddd DD/MM/YYYY HH:mm:ss')
                   }
                 />
 
@@ -399,7 +399,7 @@ const ThingsHistory = () => {
                           color='primary'
                           startDecorator={<Schedule />}
                         >
-                          {moment(history.updatedAt).format('MMM DD, h:mm A')}
+                          {moment(history.updatedAt).format('DD/MM/YYYY HH:mm')}
                         </Chip>
                       </Box>
                     </Grid>

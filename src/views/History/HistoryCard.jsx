@@ -462,7 +462,7 @@ const HistoryCard = ({
                   <Chip size='sm' startDecorator={<EventNote />}>
                     {moment(
                       historyEntry.performedAt || historyEntry.updatedAt,
-                    ).format('MMM DD, h:mm A')}
+                    ).format('DD/MM/YYYY HH:mm')}
                   </Chip>
 
                   <Box sx={{ display: 'flex', gap: 0.5 }}>
@@ -483,7 +483,7 @@ const HistoryCard = ({
                 >
                   {historyEntry.dueDate && (
                     <Chip size='sm' startDecorator={<CalendarMonth />}>
-                      {moment(historyEntry.dueDate).format('MMM DD h:mm A')}
+                      {moment(historyEntry.dueDate).format('DD/MM/YYYY HH:mm')}
                     </Chip>
                   )}
                 </Box>

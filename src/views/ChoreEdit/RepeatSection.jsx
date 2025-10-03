@@ -84,7 +84,7 @@ const generateSchedulePreview = metadata => {
     .join(', ')
 
   const timeStr = metadata.time
-    ? moment(metadata.time).format('h:mm A')
+  ? moment(metadata.time).format('HH:mm')
     : '6:00 PM'
 
   if (metadata.weekPattern === 'every_week' || !metadata.weekPattern) {

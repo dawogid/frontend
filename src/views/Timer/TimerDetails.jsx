@@ -1079,7 +1079,7 @@ const TimerDetails = () => {
                         .map((pause, pauseIndex) => {
                           const isOngoing = !pause.end
                           const sessionDate = moment(pause.start).format(
-                            'MMM DD',
+                            'DD/MM',
                           )
                           const startTime = moment(pause.start).format('HH:mm')
                           const endTime = pause.end
